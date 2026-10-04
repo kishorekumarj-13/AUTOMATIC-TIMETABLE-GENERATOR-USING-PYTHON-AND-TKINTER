@@ -7,198 +7,108 @@ The application is designed to simplify school timetable management by providing
 Features
 
 1. User Authentication
-
 Admin/user login system
-
 User registration
-
 Password hashing using SHA-256
-
 User roles
-
 Active/inactive user management
-
 Last-login tracking
 
 2. Automatic Timetable Generation
-
 Automatically generates timetables for classes and sections
-
 Supports multiple school classes
-
 Supports multiple sections
-
 Supports Monday to Saturday
-
 Supports six periods per day
-
 Considers teacher availability and teaching limits
-
 Helps avoid timetable conflicts
 
 3. Teacher Management
-
 Add teachers
-
 Edit teacher information
-
 Manage employee IDs
-
 Assign subjects to teachers
-
 Assign teachers to classes
-
 Set maximum periods per day
-
 View active teachers
-
 Deactivate teachers
 
 4. Teacher Attendance and Absence Management
-
 Record teacher absences
-
 Select absence date and day
-
 Select a specific period or mark a whole-day absence
-
 Add absence reasons
-
 Track absence records
-
 Automatically handle affected timetable periods
 
 5. Automatic Teacher Substitution
-
 When a teacher is absent, EduPlan Pro attempts to find a suitable substitute teacher.
-
 The substitution system considers factors such as:
-
 Teacher availability
-
 Maximum daily periods
-
 Teacher subject category
-
 Existing timetable assignments
-
 Class level
-
 Current teacher workload
-
 If a suitable substitute cannot be found, the affected timetable slot can be marked as unassigned.
 
 6. Timetable Import and Export
-
 Timetables can be:
-
 Exported as CSV files
-
 Imported from CSV files
-
 The CSV timetable format contains:
-
 Class, Section, Day, Period, Teacher, Subject, Room
 
 7. Class and Section Management
-
 The application supports:
-
 LKG
-
 UKG
-
 Classes 1 to 12
-
 Sections A, B, C, and D
-
 Sections can also be managed through the application.
 
 8. Graphical User Interface
-
 The application uses Tkinter to provide a desktop graphical interface.
-
 The interface includes:
-
 Login screen
-
 Dashboard
-
 Class selection
-
-Section selection
-
+ection selection
 Timetable editor
-
 Teacher management
-
 Attendance management
-
 Timetable generation
-
 Import/export options
-
 About Software section
-
 Theme switching
 
 9. Customizable Configuration
-
 The application creates a configuration file named:
-
 eduplan_config.ini
-
 Configuration options include:
-
 School name
-
 Academic year
-
 Theme
-
-Zoom meeting ID
-
-Zoom password
-
-Zoom API key
-
 The configuration file is created automatically when the application runs.
 
 10. Logging
-
 Application activity and errors are recorded in:
-
 eduplan.log
-
 The log file helps with debugging and monitoring application errors.
-
 Technologies Used
-
 Python
-
 Tkinter
-
 MySQL
-
 mysql-connector-python
-
 Pillow
-
 CSV
-
 ConfigParser
-
 JSON
-
 SHA-256 hashing
-
 Python Libraries
-
 The main external Python packages required by the project are:
-
 mysql-connector-python
 Pillow
-
 The Python standard library is also used for modules such as:
 
 tkinter
@@ -288,15 +198,10 @@ The database name is:
 eduplan_pro
 
 The users table stores application users and their hashed passwords.
-
 The teachers table stores teacher information.
-
 The classes table stores class and section information.
-
 The timetables table stores generated timetable entries.
-
 The absences table stores teacher absence and substitution information.
-
 Requirements
 
 Before running the application, install:
