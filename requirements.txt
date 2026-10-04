@@ -1,0 +1,133 @@
+SQL COMMENTS 
+NEED TO INSTALL
+CREATE DATABASE IF NOT EXISTS eduplan_pro
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE eduplan_pro;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(64) NOT NULL,
+    role VARCHAR(50) DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL,
+    is_active TINYINT(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS teachers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    employee_id VARCHAR(100) UNIQUE,
+    subject VARCHAR(100) NOT NULL,
+    classes TEXT,
+    max_periods INT DEFAULT 6,
+    assigned_periods INT DEFAULT 0,
+    is_active TINYINT(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS classes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    class_name VARCHAR(50) NOT NULL,
+    section VARCHAR(10) NOT NULL,
+    room_number VARCHAR(20),
+    strength INT DEFAULT 0,
+    academic_year VARCHAR(20),
+    is_active TINYINT(1) DEFAULT 1,
+    UNIQUE KEY unique_class_section (class_name, section)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS timetables (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    class_name VARCHAR(50) NOT NULL,
+    section VARCHAR(10) NOT NULL,
+    day VARCHAR(20) NOT NULL,
+    period VARCHAR(50) NOT NULL,
+    teacher_id INT,
+    subject_id INT,
+    room_number VARCHAR(20),
+    is_substitution TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE SET NULL,
+    UNIQUE KEY unique_timetable (class_name, section, day, period)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS absences (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    teacher_id INT,
+    absent_date DATE,
+    absent_day VARCHAR(20),
+    absent_period VARCHAR(50),
+    reason TEXT,
+    substitute_teacher_id INT,
+    is_approved TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE,
+    FOREIGN KEY (substitute_teacher_id) REFERENCES teachers(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO users (username, password_hash, role)
+SELECT
+    'admin',
+    '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9',
+    'admin'
+WHERE NOT EXISTS (
+    SELECT 1 FROM users WHERE username = 'admin'
+);
+
+INSERT IGNORE INTO classes (class_name, section, academic_year) VALUES
+('LKG', 'A', '2025-26'),
+('LKG', 'B', '2025-26'),
+('LKG', 'C', '2025-26'),
+('LKG', 'D', '2025-26'),
+('UKG', 'A', '2025-26'),
+('UKG', 'B', '2025-26'),
+('UKG', 'C', '2025-26'),
+('UKG', 'D', '2025-26'),
+('1th', 'A', '2025-26'),
+('1th', 'B', '2025-26'),
+('1th', 'C', '2025-26'),
+('1th', 'D', '2025-26'),
+('2th', 'A', '2025-26'),
+('2th', 'B', '2025-26'),
+('2th', 'C', '2025-26'),
+('2th', 'D', '2025-26'),
+('3th', 'A', '2025-26'),
+('3th', 'B', '2025-26'),
+('3th', 'C', '2025-26'),
+('3th', 'D', '2025-26'),
+('4th', 'A', '2025-26'),
+('4th', 'B', '2025-26'),
+('4th', 'C', '2025-26'),
+('4th', 'D', '2025-26'),
+('5th', 'A', '2025-26'),
+('5th', 'B', '2025-26'),
+('5th', 'C', '2025-26'),
+('5th', 'D', '2025-26'),
+('6th', 'A', '2025-26'),
+('6th', 'B', '2025-26'),
+('6th', 'C', '2025-26'),
+('6th', 'D', '2025-26'),
+('7th', 'A', '2025-26'),
+('7th', 'B', '2025-26'),
+('7th', 'C', '2025-26'),
+('7th', 'D', '2025-26'),
+('8th', 'A', '2025-26'),
+('8th', 'B', '2025-26'),
+('8th', 'C', '2025-26'),
+('8th', 'D', '2025-26'),
+('9th', 'A', '2025-26'),
+('9th', 'B', '2025-26'),
+('9th', 'C', '2025-26'),
+('9th', 'D', '2025-26'),
+('10th', 'A', '2025-26'),
+('10th', 'B', '2025-26'),
+('10th', 'C', '2025-26'),
+('10th', 'D', '2025-26'),
+('11th', 'A', '2025-26'),
+('11th', 'B', '2025-26'),
+('11th', 'C', '2025-26'),
+('11th', 'D', '2025-26'),
+('12th', 'A', '2025-26'),
+('12th', 'B', '2025-26'),
+('12th', 'C', '2025-26'),
+('12th', 'D', '2025-26');
